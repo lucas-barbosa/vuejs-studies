@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Majesty of Vue - Chapter 04</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+</head>
+<body>
+    <div class="container">
+        <h2>This is me!</h2>
+
+        <ol class="list-group">
+            <li v-for="(item, prop, index) in me" class="list-group-item">{{ index }}: {{ prop }} = {{ item }}</li>
+        </ol>
+       
+    </div>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
+    <script>
+        const me = {
+            name: 'Lucas Barbosa',
+            weight: '66kg',
+            height: '1.70m',
+            eyesColor: 'brown',
+            favoriteFood: 'Hamburger'
+        };
+
+        new Vue({
+            el: '.container',
+            data: {
+                me: {
+                    name: 'Lucas Barbosa',
+                    weight: '66kg',
+                    height: '1.70m',
+                    eyesColor: 'brown',
+                    favoriteFood: 'Hamburger'
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
