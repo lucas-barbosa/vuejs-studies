@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Majesty of Vue - Chapter 05</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+</head>
+<body>
+    <div class="container">
+        <h2>President 2018</h2>
+        <br>
+
+        <ul class="list-group">
+            <li v-for="candidate in candidates" class="list-group-item">
+                {{ candidate.name }} {{ candidate.votes }} 
+                <button @click="candidate.votes++" class="btn btn-default">Vote</button>
+            </li>            
+        </ul>
+
+        <br>
+        <input @keyup.delete="clear" class="form-control" type="text" placeholder="press 'delete' to reset">
+
+        <br>
+        <h3 v-show="president.votes !== 0">Our president is {{ president.name }}!</h3>
+    </div>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
+    <script>
+        const candidates = [
+            { name: 'Bolsonaro', votes: 0 },
+            { name: 'Geraldo Alckmin', votes: 0 },
+            { name: 'Lula', votes: 0 },
+            { name: 'Marina Silva', votes: 0 }
+        ];
+        
+        new Vue({
+            el: '.container',
+            data: { candidates },
+            computed: {
+                president() {
+                    const president = candidates.sort((a, b) => b.votes - a.votes)[0];
+                    return president;
+                }
+            },
+            methods: {
+                clear() {
+                    this.candidates = this.candidates.map(candidate => {
+                        candidate.votes = 0;
+                        return candidate;
+                    });
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
