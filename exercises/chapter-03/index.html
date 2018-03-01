@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Majesty of Vue - Chapter 03</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+</head>
+<body>
+    <div class="container">
+
+       <template v-if="gender === 'male' || gender === 'female'">
+           <h2>Hello
+                <span v-if="gender === 'male'">Mister</span>
+                <span v-else>Miss</span> 
+                {{ name }}
+           </h2>
+       </template>
+       <h2 v-else>So you can’t decide. Fine!</h2>
+
+        <form class="form-group">
+            <label for="gender">Enter your gender:</label>
+            <input v-model="gender" class="form-control" type="text" id="gender">
+
+            <label for="name">Enter your name:</label>
+            <input v-model="name" class="form-control" type="text" id="name">
+        </form>
+
+         <pre>
+            {{ data }}
+        </pre>
+    </div>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
+    <script>
+        let data = {
+            gender: '',
+            name: ''
+        };
+
+        new Vue({
+            el: '.container',
+            data: data
+        });
+    </script>
+</body>
+</html>
