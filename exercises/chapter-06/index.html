@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Majesty of Vue - Chapter 06</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+</head>
+<body>
+    <div class="container">
+        <h2>People of the Barbosa family</h2>
+        <ul class="list-group">
+            <li v-for="person in orderedPeople()" class="list-group-item">{{ person.name }} {{ person.age }}</li>
+        </ul>
+
+        <br>
+
+        <h2>"Old" People of the Barbosa Family</h2>
+        <ul class="list-group">
+            <li v-for="person in old" class="list-group-item">{{ person.name }} {{ person.age }}</li>
+        </ul>
+    </div>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
+    <script>
+        const people = [
+            { name: 'Lucas', age: 20 },
+            { name: 'Débora', age: 19 },
+            { name: 'Luana', age: 14 },
+            { name: 'Fabiana', age: 42 },
+            { name: 'Etelvino', age: 42 },
+            { name: 'Antônio', age: 68 },
+            { name: 'Maria', age: 77 },
+            { name: 'Vera', age: 55 },
+            { name: 'Avelino', age: 81 }
+        ];
+
+        new Vue({
+            el: '.container',
+            data: { people },
+            methods: {
+                orderedPeople() {
+                    return this.people.sort((a, b) => a - b);
+                }
+            },
+            computed: {
+                old() {
+                    return this.people.filter(person => person.age > 65);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
