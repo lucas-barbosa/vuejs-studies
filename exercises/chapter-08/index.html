@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Majesty of Vue - Chapter 08</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+       <h2>Chariot Shopping</h2>
+
+       <ul class="list-group">
+           <chariot v-for="chariot in chariots" 
+                    :chariot="chariot"
+                    :selected="selected"></chariot>
+       </ul>       
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
+
+<template id="chariot">
+    <li class="list-group-item">
+        "{{ chariot.name }}" chariot has {{ chariot.horses }} horse(s)!
+        <br>
+        <button class="btn btn-primary" 
+                @click="select" 
+                :disabled="isSelected">
+            {{ action }}
+        </button>
+    </li>
+</template>
+
+<script>        
+    const chariots = [
+        { name: 'Tobias', horses: 2 },
+        { name: 'Fred', horses: 1 },
+        { name: 'Black', horses: 4 },
+        { name: 'Albus', horses: 3 },
+    ];
+
+    const bus = new Vue();
+
+    Vue.component('chariot', {
+        props: ['chariot', 'selected'],
+        template: '#chariot',
+        methods: {
+            select() {
+                bus.$emit('select', this.chariot);                    
+            }
+        },
+        computed: {
+            action() {                                    
+                if (!this.selected) return 'Pick Chariot!';     
+                if (this.isSelected) return 'Riding!';               
+                if (this.dismissHorses) return 'Dismiss Horses';
+                if (this.hireHorses) return 'Hire Horses';
+            },
+            dismissHorses() {
+                return this.chariot.horses < this.selected.horses;
+            },
+            hireHorses() {
+                return this.chariot.horses > this.selected.horses;
+            },
+            isSelected() {            
+                return this.chariot === this.selected;
+            }
+        }
+    });
+
+    new Vue({
+        el: '.container',
+        data: {
+            selected: ''
+        },
+        methods: {
+            select(chariot) {
+                this.selected = chariot;
+            }
+        },
+        created() {
+            bus.$on('select', this.select);
+        }
+    });
+    
+</script>
+</html>
