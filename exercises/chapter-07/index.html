@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Majesty of Vue - Chapter 07</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+       <h2>Where would you like to go?</h2>
+       <ul class="list-group">
+           <beach   v-for="beach in beaches" :beach="beach"></beach>
+       </ul>
+    </div>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
+    <script type="text/template" id="beach-template">
+        <li class="list-group-item">
+            Beach: {{ beach.name }}
+            Visited: {{ beach.numberOfVisit }}
+            <button class="btn btn-primary" @click="visit" v-show="canBeVisited">
+                Visit
+            </button>
+            <span class="fa fa-car fa-2x pull-right" v-show="wasVisited"></span>
+        </li>
+    </script>
+    <script>        
+        const beaches = [
+            { name: 'Maragogi', numberOfVisit: 0 },
+            { name: 'Natal', numberOfVisit: 0 },
+            { name: 'Porto de Galinhas', numberOfVisit: 0 },
+            { name: 'Maceió', numberOfVisit: 0 }
+        ];
+
+        Vue.component('beach', {
+            props: ['beach'],
+            template: '#beach-template',
+            methods: {
+                visit() {
+                    this.beach.numberOfVisit++;
+                }
+            },
+            computed: {
+                canBeVisited() {                    
+                    return this.beach.numberOfVisit < 3;
+                },
+                wasVisited() {
+                    return this.beach.numberOfVisit > 0;
+                }
+            }
+        });
+
+        new Vue({
+            el: '.container',
+            data: { beaches },
+        });
+    </script>
+</body>
+</html>
