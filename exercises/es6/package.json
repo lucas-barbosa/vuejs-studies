@@ -1,9 +1,11 @@
 {
   "scripts": {
-    "build": "babel js -d assets/js"
+    "build": "babel src/js -d assets/js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.6.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1"
   }
 }
